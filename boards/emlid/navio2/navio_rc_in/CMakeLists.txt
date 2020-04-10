@@ -1,6 +1,6 @@
 ############################################################################
 #
-#   Copyright (c) 2018 PX4 Development Team. All rights reserved.
+#   Copyright (c) 2016-2020 PX4 Development Team. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -30,8 +30,13 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 ############################################################################
-
-add_subdirectory(adc)
-add_subdirectory(navio_rgbled)
-add_subdirectory(navio_sysfs_rc_in)
-add_subdirectory(navio_rc_in)
+px4_add_module(
+	MODULE navio_rc_in
+	MAIN navio_rc_in
+	SRCS
+		NavioRCInput.cpp
+		NavioRCInput.hpp
+		navio_rc_in_main.cpp
+	DEPENDS
+		px4_work_queue
+)
