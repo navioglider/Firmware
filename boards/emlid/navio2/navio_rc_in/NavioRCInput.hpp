@@ -43,6 +43,9 @@
 #include <uORB/PublicationMulti.hpp>
 #include <uORB/topics/input_rc.h>
 
+#include <net/if.h>
+#include <netinet/in.h>
+
 namespace navio_rc_in
 {
 
@@ -77,7 +80,17 @@ private:
 	int _channel_fd[CHANNELS] {};
 	int _connected_fd{-1};
 
+	int 						_socket_fd{-1};
+	sockaddr_in			_src_addr{};
+	socklen_t				_src_addr_len{0};
+	unsigned short	_network_port{14555};
+	int							_network_tries{0};
+	int							_network_tries_treshold{10};
+
 	bool _connected{false};
+
+	bool read_udp_channels(uint16_t* values);
+	bool read_fd_channels(uint16_t* values);
 
 	perf_counter_t _publish_interval_perf{perf_alloc(PC_INTERVAL, MODULE_NAME": publish interval")};
 };
