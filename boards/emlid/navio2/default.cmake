@@ -12,6 +12,7 @@ px4_add_board(
 	TESTING
 	DRIVERS
 		adc
+		aoas
 		#barometer # all available barometer drivers
 		barometer/ms5611
 		batt_smbus

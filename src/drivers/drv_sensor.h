@@ -162,6 +162,8 @@
 #define DRV_MAG_DEVTYPE_UAVCAN	0x88
 #define DRV_DIST_DEVTYPE_UAVCAN	0x89
 
+// custom types
+#define DRV_SENS_DEVTYPE_AOAS         0xfe
 
 #define DRV_DEVTYPE_UNUSED		0xff
 
