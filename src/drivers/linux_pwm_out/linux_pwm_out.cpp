@@ -134,6 +134,15 @@ int mixer_control_callback(uintptr_t handle,
 	const actuator_controls_s *controls = (actuator_controls_s *)handle;
 	input = controls[control_group].control[control_index];
 
+	if(_armed.prearmed && !_armed.armed && !_armed.in_esc_calibration_mode) {
+		if ((control_group == actuator_controls_s::GROUP_INDEX_ATTITUDE ||
+		     control_group == actuator_controls_s::GROUP_INDEX_ATTITUDE_ALTERNATE) &&
+		    control_index == actuator_controls_s::INDEX_THROTTLE) {
+			/* set the throttle to an invalid value */
+			input = NAN;
+		}
+	}
+
 	return 0;
 }
 
@@ -359,7 +368,7 @@ void task_main(int argc, char *argv[])
 
 			// TODO FIXME: pre-armed seems broken
 			output_limit_calc(_armed.armed,
-					  false/*_armed.prearmed*/,
+					  _armed.prearmed,
 					  _outputs.noutputs,
 					  reverse_mask,
 					  disarmed_pwm,
