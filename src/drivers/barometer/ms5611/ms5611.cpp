@@ -245,7 +245,7 @@ MS5611::collect()
 	const hrt_abstime timestamp_sample = hrt_absolute_time();
 	int ret = _interface->read(0, (void *)&raw, 0);
 
-	if (ret < 0) {
+	if (ret < 0 || raw == 0) {
 		perf_count(_comms_errors);
 		perf_end(_sample_perf);
 		return ret;
